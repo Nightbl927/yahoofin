@@ -19,14 +19,36 @@ class ChartQuotes {
   List<num>? high;
   List<num>? timestamp;
 
-  factory ChartQuotes.fromJson(dynamic timestamp, Map<String, dynamic> json) => ChartQuotes(
-        timestamp: List<int>.from(timestamp),
-        open: List<double>.from(json["open"]),
-        low: List<double>.from(json["low"]),
-        close: List<double>.from(json["close"]),
-        volume: List<int>.from(json["volume"]),
-        high: List<double>.from(json["high"]),
-      );
+  factory ChartQuotes.fromJson(dynamic timestamp, Map<String, dynamic> json) {
+    List<dynamic> openList = json["open"];
+    openList.removeWhere((element) => element == null);
+    List<double> openListInt = openList.cast<double>();
+
+    List<dynamic> lowList = json["low"];
+    lowList.removeWhere((element) => element == null);
+    List<double> lowListInt = lowList.cast<double>();
+
+    List<dynamic> closeList = json["close"];
+    closeList.removeWhere((element) => element == null);
+    List<double> closeListInt = closeList.cast<double>();
+
+    List<dynamic> volumeList = json["volume"];
+    volumeList.removeWhere((element) => element == null);
+    List<double> volumeListInt = volumeList.cast<double>();
+
+    List<dynamic> highList = json["high"];
+    highList.removeWhere((element) => element == null);
+    List<double> highListInt = highList.cast<double>();
+
+    return ChartQuotes(
+      timestamp: List<int>.from(timestamp),
+      open: openListInt,
+      low: lowListInt,
+      close: closeListInt,
+      volume: volumeListInt,
+      high: highListInt,
+    );
+  }
 }
 
 class StockChart extends Equatable {
